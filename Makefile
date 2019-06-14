@@ -1,5 +1,5 @@
 test:
-	vendor/bin/phpunit
+	phpunit
 install:
 	composer install
 run:
@@ -7,4 +7,4 @@ run:
 logs:
 	tail -f storage/logs/lumen.log
 lint:
-	composer run-script phpcs -- --standard=PSR12 app/Http public routes tests
+	composer run-script phpcs -- --standard=PSR12 app/Http public routes
