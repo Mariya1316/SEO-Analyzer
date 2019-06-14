@@ -1,23 +1,24 @@
 <?php
 
-use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
-
 class ProjectTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testHomePage()
+    use Laravel\Lumen\Testing\DatabaseMigrations;
+
+    public function testShowMainPage()
     {
-        $this->get('/');
+        $this->get(route('mainPage'));
         $this->assertResponseOk();
     }
 
-    public function testDomainsTable()
+    public function testAddDomain()
     {
-        $this->seeInDatabase('domains', ['title' => 'dotdev.co']);
+        $this->post(route('addDomain'), ['url' => 'https://www.google.com']);
+        $this->seeInDatabase('domains', ['name' => 'https://www.google.com']);
+    }
+    public function testShowDomain()
+    {
+        $this->post(route('addDomain'), ['url' => 'https://www.google.com']);
+        $this->get(route('showDomain', ['id' => 1]));
+        $this->assertResponseOk();
     }
 }

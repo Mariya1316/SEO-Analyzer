@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Validator;
 
 class DomainsController extends Controller
 {
@@ -13,9 +14,9 @@ class DomainsController extends Controller
 
     public function showMainPage()
     {
-        return view('main');
+        return view('main', ['url' => '']);
     }
-    
+
     public function showDomain($id)
     {
         $domain = DB::table('domains')->find($id);
@@ -25,16 +26,23 @@ class DomainsController extends Controller
     public function addDomain(Request $request)
     {
         $url = $request->input('url');
-        $time = Carbon::now();     
-        $id = DB::table('domains')->where('name', $url)->value('id');       
+        $validator = Validator::make($request->all(), ['url' => 'required|url']);
+        if ($validator->fails()) {
+            $errorMessage = 'Invalid URL format. Example: http://site.com';
+            return view('main', ['errorMessage' => $errorMessage, 'url' => $url]);
+        }
+        $time = Carbon::now();
+        $id = DB::table('domains')->where('name', $url)->value('id');
         if ($id) {
-            DB::table('domains')->where('name', $url)->update(['updated_at' => $time]);            
+            DB::table('domains')->where('name', $url)->update(['updated_at' => $time]);
         } else {
             $id = DB::table('domains')->insertGetId(
-                ['name' => $url, 
-                 'created_at' => $time,
-                 'updated_at' => $time
-            ]);
+                [
+                    'name' => $url,
+                    'created_at' => $time,
+                    'updated_at' => $time
+                ]
+            );
         }
         return redirect()->route('showDomain', ['id' => $id]);
     }

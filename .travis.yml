@@ -1,6 +1,16 @@
 language: php
 php:
   - '7.3'
+services:
+  - postgresql
+env:
+  global:
+  - DB_CONNECTION=pgsql
+  - DB_DATABASE=travis_ci_test
+  - DB_USERNAME=postgres
+  - DB_PASSWORD=""
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
 install:
   - make install
 script: 
