@@ -6,10 +6,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">created_at</th>
-            <th scope="col">updated_at</th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Response code</th>
+            <th scope="col">Content length</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Updated at</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +19,8 @@
         <tr>
             <th scope="row">{{ $domain->id }}</th>
             <td><a href="{{ route('showDomain', ['id' => $domain->id]) }}">{{ $domain->name }}</a></td>
+            <td>{{ $domain->response_code }}</td>
+            <td>{{ $domain->content_length }}</td>
             <td>{{ $domain->created_at }}</td>
             <td>{{ $domain->updated_at }}</td>
         </tr>
