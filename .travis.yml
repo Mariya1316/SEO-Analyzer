@@ -5,7 +5,7 @@ services:
   - postgresql
 env:
   global:
-  - CC_TEST_REPORTER_ID=13f36536b54c767b402de07dcbe38798598c15bbfedba3eaec1bb2dba292fcfa
+  - CC_TEST_REPORTER_ID=c8fd7fb831ab6b42dc908f6f4b2405ec9f95c12843f480330ccd14e493506b65
   - DB_CONNECTION=pgsql
   - DB_DATABASE=travis_ci_test
   - DB_USERNAME=postgres
