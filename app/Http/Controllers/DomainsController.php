@@ -34,7 +34,8 @@ class DomainsController extends Controller
         $time = Carbon::now();
         $id = DB::table('domains')->where('name', $url)->value('id');
         if ($id) {
-            DB::table('domains')->where('name', $url)->update(['updated_at' => $time]);
+            DB::table('domains')->where('name', $url)
+                ->update(['updated_at' => $time]);
         } else {
             $id = DB::table('domains')->insertGetId(
                 [
@@ -45,5 +46,14 @@ class DomainsController extends Controller
             );
         }
         return redirect()->route('showDomain', ['id' => $id]);
+    }
+
+    public function showDomains()
+    {
+        $domains = DB::table('domains')->paginate(5);
+        return view('domains', [
+            'domains' => $domains,
+            'paginate' => 'true'
+        ]);
     }
 }

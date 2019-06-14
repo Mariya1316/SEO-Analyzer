@@ -15,10 +15,18 @@ class ProjectTest extends TestCase
         $this->post(route('addDomain'), ['url' => 'https://www.google.com']);
         $this->seeInDatabase('domains', ['name' => 'https://www.google.com']);
     }
+
     public function testShowDomain()
     {
         $this->post(route('addDomain'), ['url' => 'https://www.google.com']);
         $this->get(route('showDomain', ['id' => 1]));
+        $this->assertResponseOk();
+    }
+    
+    public function testShowDomains()
+    {
+        $this->post(route('addDomain'), ['url' => 'https://www.google.com']);
+        $this->get(route('showDomains'));
         $this->assertResponseOk();
     }
 }

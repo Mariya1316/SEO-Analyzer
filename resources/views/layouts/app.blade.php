@@ -9,14 +9,14 @@
     <body>
         @section('navbar')
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="/">SEO Analyzer</a>
+                <a class="navbar-brand" href="{{ route('mainPage') }}">SEO Analyzer</a>
                 <div class="collapse navbar-collapse" id="navbar1">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ route('mainPage') }}">Home<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="{{ route('showDomains') }}">All domains</a>
                         </li>
                     </ul>
                 </div>
