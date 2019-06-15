@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'All domains')
+@section('title', 'Query history')
 
 @section('content')
 <table class="table">

@@ -5,8 +5,8 @@
 @section('content')
 <div class="jumbotron .jumbotron-fluid">
     <div class="container-fluid">
-        <h1 class="display-4">Get Free Website SEO Score</h1>
-        <p class="lead">Improve your SEO rating with the best website checker</p>
+        <h1 class="display-4">Free Website SEO Score</h1>
+        <p class="lead">Explore any web page for SEO features.</p>
         <form method="post" action="{{ route('addDomain') }}">
             <div class="form-group">
                 <label for="InputURL">Website URL</label>

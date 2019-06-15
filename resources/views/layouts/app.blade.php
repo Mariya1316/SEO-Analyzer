@@ -16,7 +16,7 @@
                             <a class="nav-link" href="{{ route('mainPage') }}">Home<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('showDomains') }}">All domains</a>
+                            <a class="nav-link" href="{{ route('showDomains') }}">Query history</a>
                         </li>
                     </ul>
                 </div>
