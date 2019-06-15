@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Validator;
 use GuzzleHttp\Client;
+use DiDom\Document;
 
 class DomainsController extends Controller
 {
@@ -43,6 +44,12 @@ class DomainsController extends Controller
         $body = (string)$response->getBody();
         $contentLength = $response->getHeader('Content-Length') ?
             $response->getHeader('Content-Length')[0] : 0;
+        $doc = new Document($url, true);
+        $h1 = $doc->has('h1') ? $doc->first('h1')->text() : 'No tag';
+        $keywords = $doc->has('meta[name="keywords"]') ?
+            $doc->first('meta[name="keywords"]')->attr('content') : 'No tag';
+        $description = $doc->has('meta[name="description"]') ?
+            $doc->first('meta[name="description"]')->attr('content') : 'No tag';
         $time = Carbon::now();
 
         $id = DB::table('domains')->where('name', $url)->value('id');
@@ -51,6 +58,9 @@ class DomainsController extends Controller
                 [
                     'response_code' => $responseCode,
                     'content_length' => $contentLength,
+                    'h1' => $h1,
+                    'keywords' => $keywords,
+                    'description' => $description,
                     'body' => $body,
                     'updated_at' => $time
                 ]
@@ -61,6 +71,9 @@ class DomainsController extends Controller
                     'name' => $url,
                     'response_code' => $responseCode,
                     'content_length' => $contentLength,
+                    'h1' => $h1,
+                    'keywords' => $keywords,
+                    'description' => $description,
                     'body' => $body,
                     'created_at' => $time,
                     'updated_at' => $time
