@@ -12,8 +12,8 @@ class ProjectTest extends TestCase
 
     public function testAddDomain()
     {
-        $this->post(route('addDomain'), ['url' => 'https://www.google.com']);
-        $this->seeInDatabase('domains', ['name' => 'https://www.google.com']);
+        $this->post(route('addDomain'), ['url' => 'https://vk.com']);
+        $this->seeInDatabase('domains', ['name' => 'https://vk.com']);
     }
 
     public function testShowDomain()
