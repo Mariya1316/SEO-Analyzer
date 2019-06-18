@@ -44,7 +44,7 @@ class DomainsController extends Controller
         $body = (string)$response->getBody();
         $contentLength = $response->getHeader('Content-Length') ?
             $response->getHeader('Content-Length')[0] : 0;
-        $doc = new Document($url, true);
+        $doc = new Document($body);
         $h1 = $doc->has('h1') ? $doc->first('h1')->text() : 'No tag';
         $keywords = $doc->has('meta[name="keywords"]') ?
             $doc->first('meta[name="keywords"]')->attr('content') : 'No tag';
