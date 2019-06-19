@@ -21,20 +21,7 @@ class ProjectTest extends TestCase
 
     public function testAddDomain()
     {
-        $body = <<<DOC
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Test site</title>
-        <meta name="keywords" content="Test keywords">
-        <meta name="description" content="Test description">
-    </head> 
-    <body>
-        <h1>Heading</h1>
-    </body>
-</html>
-DOC;
-
+        $body = file_get_contents("tests/TestFiles/testPage.html");
         $mock = new MockHandler([new Response(200, ['Content-Length' => 251], $body)]);
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);

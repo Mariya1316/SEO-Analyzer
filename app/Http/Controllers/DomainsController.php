@@ -19,18 +19,13 @@ class DomainsController extends Controller
         $this->client = $client;
     }
 
-    public function showMainPage()
-    {
-        return view('main', ['url' => '']);
-    }
-
-    public function showDomain($id)
+    public function show($id)
     {
         $domain = DB::table('domains')->find($id);
-        return view('domain', ['domain' => $domain]);
+        return view('domain.domain', ['domain' => $domain]);
     }
 
-    public function addDomain(Request $request)
+    public function store(Request $request)
     {
         $url = $request->input('url');
         $validator = Validator::make($request->all(), ['url' => 'required|url']);
@@ -43,13 +38,13 @@ class DomainsController extends Controller
         $responseCode = $response->getStatusCode();
         $body = (string)$response->getBody();
         $contentLength = $response->getHeader('Content-Length') ?
-            $response->getHeader('Content-Length')[0] : 0;
+            $response->getHeader('Content-Length')[0] : null;
         $doc = new Document($body);
-        $h1 = $doc->has('h1') ? $doc->first('h1')->text() : 'No tag';
+        $h1 = $doc->has('h1') ? $doc->first('h1')->text() : null;
         $keywords = $doc->has('meta[name="keywords"]') ?
-            $doc->first('meta[name="keywords"]')->attr('content') : 'No tag';
+            $doc->first('meta[name="keywords"]')->attr('content') : null;
         $description = $doc->has('meta[name="description"]') ?
-            $doc->first('meta[name="description"]')->attr('content') : 'No tag';
+            $doc->first('meta[name="description"]')->attr('content') : null;
         $time = Carbon::now();
 
         $id = DB::table('domains')->where('name', $url)->value('id');
@@ -84,10 +79,10 @@ class DomainsController extends Controller
         return redirect()->route('showDomain', ['id' => $id]);
     }
 
-    public function showDomains()
+    public function index()
     {
         $domains = DB::table('domains')->paginate(5);
-        return view('domains', [
+        return view('domain.domains', [
             'domains' => $domains,
             'paginate' => 'true'
         ]);

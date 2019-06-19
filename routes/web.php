@@ -2,20 +2,20 @@
 
 $router->get('/', [
     'as' => 'mainPage',
-    'uses' => 'DomainsController@showMainPage'
+    'uses' => 'MainPageController@show'
 ]);
 
 $router->post('/domains', [
     'as' => 'addDomain',
-    'uses' => 'DomainsController@addDomain'
+    'uses' => 'DomainsController@store'
 ]);
 
 $router->get('/domains/{id}', [
     'as' => 'showDomain',
-    'uses' => 'DomainsController@showDomain'
+    'uses' => 'DomainsController@show'
 ]);
 
 $router->get('/domains', [
     'as' => 'showDomains',
-    'uses' => 'DomainsController@showDomains'
+    'uses' => 'DomainsController@index'
 ]);
